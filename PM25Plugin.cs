@@ -32,7 +32,7 @@ namespace DNWS
             string content = sr.ReadToEnd();
             pm25reading = JsonSerializer.Deserialize<PM25Reading>(content);
         }
-        
+
         public void PreProcessing(HTTPRequest request)
         {
             throw new NotImplementedException();
@@ -51,15 +51,16 @@ namespace DNWS
             }
 
             HTTPResponse response = null;
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<html><body>");
-            sb.Append("Location : " + pm25reading.data.city.name + "<br />");
-            sb.Append("Date/Time : " + pm25reading.data.time.iso + "<br />");
-            sb.Append("PM25 : " + pm25reading.data.iaqi.pm25.v + "<br />");
-            sb.Append("PM10 : " + pm25reading.data.iaqi.pm10.v + "<br />");
-            sb.Append("</body></html>");
+            // StringBuilder sb = new StringBuilder();
+            // sb.Append("<html><body>");
+            // sb.Append("Location : " + pm25reading.data.city.name + "<br />");
+            // sb.Append("Date/Time : " + pm25reading.data.time.iso + "<br />");
+            // sb.Append("PM25 : " + pm25reading.data.iaqi.pm25.v + "<br />");
+            // sb.Append("PM10 : " + pm25reading.data.iaqi.pm10.v + "<br />");
+            // sb.Append("</body></html>");
+            string recievedata = JsonSerializer.Serialize(pm25reading);
             response = new HTTPResponse(200);
-            response.body = Encoding.UTF8.GetBytes(sb.ToString());
+            response.body = Encoding.UTF8.GetBytes(recievedata);
             return response;
         }
 
